@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "live-server": "^1.2.0",
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0"
+  },
+  "name": "slap-masters-9000",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
