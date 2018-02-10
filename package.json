@@ -1,11 +1,16 @@
 {
-  "devDependencies": {
-    "live-server": "^1.2.0",
-    "typescript": "^2.7.1",
-    "webpack": "^3.10.0"
-  },
   "name": "slap-masters-9000",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack-dev-server"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0",
+    "ts-loader": "^3.5.0",
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  }
 }
