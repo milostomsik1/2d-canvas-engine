@@ -6,8 +6,8 @@ class Canvas {
 
   private _canvas: HTMLCanvasElement;
 
-  private _onKeyDown: Function;
-  private _onKeyDownEvent: KeyboardEvent;
+  private _onKeyPress: Function;
+  private _onKeyPressEvent: KeyboardEvent;
 
   private _onKeyUp: Function;
   private _onKeyUpEvent: KeyboardEvent;
@@ -27,7 +27,12 @@ class Canvas {
     canvas.width = window.innerWidth;
 
     const body = document.body;
+    body.style.padding = '0';
+    body.style.margin = '0';
+    body.style.boxSizing = 'border-box';
+    body.style.cursor = 'none';
     body.appendChild(canvas);
+
     this._canvas = canvas;
   }
 
@@ -51,17 +56,17 @@ class Canvas {
     setInterval(() => {
       // Executes key stroke functions only when the canvas re-renders to avoid
       // problems with synchronization between framerate and event listener
-      this.executeKeyDown();
+      this.executeKeyPress();
       this.executeKeyUp();
       fn();
     }, 1000 / this._framerate);
   }
 
-  private executeKeyDown(): void {
-    if (this._onKeyDown) {
-      this._onKeyDown(this._onKeyDownEvent);
-      this._onKeyDown = null;
-      this._onKeyDownEvent = null;
+  private executeKeyPress(): void {
+    if (this._onKeyPress) {
+      this._onKeyPress(this._onKeyPressEvent);
+      this._onKeyPress = null;
+      this._onKeyPressEvent = null;
     }
   }
 
@@ -73,14 +78,17 @@ class Canvas {
     }
   }
 
-  public onKeyDown(fn: Function) {
+  public onKeyPress(fn: Function) {
     let prevKey: Number;
 
     window.addEventListener('keydown', (event: KeyboardEvent) => {
+      if([32, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+        event.preventDefault();
+      }
       // Disables key repeat and limits to one event firing
       if (event.keyCode !== prevKey) {
-        this._onKeyDownEvent = event;
-        this._onKeyDown = fn.bind(this, event);
+        this._onKeyPressEvent = event;
+        this._onKeyPress = fn.bind(this, event);
       }
       prevKey = event.keyCode;
     });

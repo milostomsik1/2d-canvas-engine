@@ -6,7 +6,10 @@ import {
   CircleDimensions,
   EllipseDimensions,
 } from '../Interface/dimensions';
-import { Point, OriginPoint } from '../Interface/points';
+import {
+  Point,
+  OriginPoint
+} from '../Interface/points';
 
 const CTX = Canvas.getInstance().getContext();
 const DRAW = Draw.getInstance();
