@@ -1,7 +1,9 @@
+import { RectangleDimensions } from './interfaces';
+
 class Draw {
   constructor(private ctx: CanvasRenderingContext2D) {}
 
-  private setFillColor(color: string | number[]): void {
+  public setFillColor(color: string | number[]): void {
     if (typeof color === 'string') {
       this.ctx.fillStyle = color;
     } else if (color.length === 3 &&
@@ -18,26 +20,39 @@ class Draw {
       const [R, G, B, A] = color;
       this.ctx.fillStyle = `rgb(${R}, ${G}, ${B}, ${A})`;
     } else {
-      throw new Error(`Invalid color format. Proper color formats: hex || rgb`);
+      throw new Error(`Invalid color format. Proper color formats: hex || rgb.`);
     }
   }
 
-  public background(...color: any[]): void {
+  public background(color: string | number[]): void {
     this.setFillColor(color);
     this.ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
   }
 
-  public rectangle(x: number, y: number, width: number, height: number, color: string | number[]): void {
+  public rectangle(x: number, y: number, dimensions: RectangleDimensions, color: string | number[]): void {
     if (typeof x === 'number' &&
         typeof y === 'number' &&
-        typeof width === 'number' && width > 0 &&
-        typeof height === 'number' && height > 0) {
+        typeof dimensions.width === 'number' && dimensions.width > 0 &&
+        typeof dimensions.height === 'number' && dimensions.height > 0) {
       this.setFillColor(color);
-      this.ctx.fillRect(x, y, width, height);
+      this.ctx.fillRect(x, y, dimensions.width, dimensions.height);
     } else {
-      throw new Error('Incorrect parameters: x, y, width, height must be numbers, width and height must be larger than 0');
+      throw new Error('Incorrect parameters: x, y, width, height must be numbers, width and height must be larger than zero.');
     }
   }
+
+  public circle(x: number, y: number, r: number, color: string | number[]) {
+    if (typeof x === 'number' &&
+        typeof y === 'number' &&
+        typeof r === 'number' && r > 0) {
+      this.setFillColor(color);
+      this.ctx.ellipse(x, y, r * 2, r * 2, 0, 0, 360);
+      this.ctx.fill();
+    } else {
+      throw new Error('Incorrect parameters: x, y, r must be numbers, r must be larger than zero.');
+    }
+  }
+
 }
 
 export default Draw;
