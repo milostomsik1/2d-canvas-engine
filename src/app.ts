@@ -1,22 +1,23 @@
 //-------------------------
 // IMPORTS
 //-------------------------
-import Canvas from './canvas';
-import Draw from './draw';
-import Rectangle from './rectangle';
+import Canvas from './Engine/canvas';
+import Draw from './Engine/draw';
+import { OriginPoint } from './Interface/points';
+import Rectangle from './Shapes/rectangle';
 
 //-------------------------
 // SETUP
 //-------------------------
-const canvas = new Canvas();
-canvas.framerate = 60;
-const ctx = canvas.getContext();
-const draw = new Draw(ctx);
-const rect = new Rectangle(ctx, draw);
+const canvas = Canvas.getInstance();
+const draw = Draw.getInstance();
+const rect = new Rectangle();
+
 rect.dimensions = {
   width: 200,
-  height: 300
+  height: 200
 }
+rect.originPoint = OriginPoint.CENTER;
 rect.fillColor = '#fff000';
 //-------------------------
 // EXECUTION
@@ -24,6 +25,7 @@ rect.fillColor = '#fff000';
 canvas.render(() => {
   draw.background([50, 50, 50]);
   rect.draw();
+  console.log(canvas.framerate);
 });
 
 canvas.onKeyDown((event: KeyboardEvent) => {

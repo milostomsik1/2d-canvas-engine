@@ -1,12 +1,15 @@
-import Draw from './draw';
+import Canvas from '../Engine/canvas';
+import Draw from '../Engine/draw';
 import {
   SquareDimensions,
   RectangleDimensions,
   CircleDimensions,
   EllipseDimensions,
-  Point
-} from './interfaces';
-import OriginPoint from './origin-point';
+} from '../Interface/dimensions';
+import { Point, OriginPoint } from '../Interface/points';
+
+const CTX = Canvas.getInstance().getContext();
+const DRAW = Draw.getInstance();
 
 abstract class AbstractObject {
   protected _fill: boolean = true;
@@ -26,8 +29,8 @@ abstract class AbstractObject {
                          EllipseDimensions;
 
   constructor(
-    protected _ctx: CanvasRenderingContext2D,
-    protected _draw: Draw
+    protected _ctx: CanvasRenderingContext2D = CTX,
+    protected _draw: Draw = DRAW
   ) {}
 
   public get fill(): boolean {

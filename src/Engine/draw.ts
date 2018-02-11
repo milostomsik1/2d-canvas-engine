@@ -1,7 +1,21 @@
-import { RectangleDimensions } from './interfaces';
+import { RectangleDimensions } from '../Interface/dimensions';
+import Canvas from './canvas';
+
+const CTX = Canvas.getInstance().getContext();
 
 class Draw {
-  constructor(private ctx: CanvasRenderingContext2D) {}
+  // Singleton instance
+  private static _instance: Draw;
+
+  private constructor(private ctx: CanvasRenderingContext2D = CTX) {}
+
+  // Get singleton instance
+  static getInstance(): Draw {
+    if (!Draw._instance) {
+      Draw._instance = new Draw();
+    }
+    return Draw._instance;
+  }
 
   public setFillColor(color: string | number[]): void {
     if (typeof color === 'string') {

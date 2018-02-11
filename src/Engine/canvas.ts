@@ -1,4 +1,7 @@
 class Canvas {
+  // Singleton instance
+  private static _instance: Canvas;
+
   private _framerate = 60;
 
   private _canvas: HTMLCanvasElement;
@@ -9,7 +12,15 @@ class Canvas {
   private _onKeyUp: Function;
   private _onKeyUpEvent: KeyboardEvent;
 
-  constructor() {
+  // Get singleton instance
+  static getInstance(): Canvas {
+    if (!Canvas._instance) {
+      Canvas._instance = new Canvas();
+    }
+    return Canvas._instance;
+  }
+
+  private constructor() {
     const canvas = document.createElement('canvas');
     canvas.id = 'canvas';
     canvas.height = window.innerHeight;

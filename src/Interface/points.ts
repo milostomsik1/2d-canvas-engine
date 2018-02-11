@@ -1,6 +1,9 @@
-import { Point } from './interfaces';
+export interface Point {
+  x: number;
+  y: number;
+}
 
-class OriginPoint {
+export class OriginPoint {
   static get TOP_LEFT(): Point {
     return {
       x: 0,
@@ -65,5 +68,3 @@ class OriginPoint {
   }
 
 }
-
-export default OriginPoint;

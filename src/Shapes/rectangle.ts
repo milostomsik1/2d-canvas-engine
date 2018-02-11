@@ -1,6 +1,6 @@
-import { RectangleDimensions } from './interfaces';
+import { RectangleDimensions } from '../Interface/dimensions';
+import { Point } from './../Interface/points';
 import AbstractShape from './abstract-shape';
-import Draw from './draw';
 
 class Rectangle extends AbstractShape {
   protected _dimensions: RectangleDimensions = {
@@ -19,6 +19,7 @@ class Rectangle extends AbstractShape {
       throw new Error('X coordinate must be a number.');
     }
   }
+
   public get y(): number {
     return this._y;
   }
@@ -28,6 +29,20 @@ class Rectangle extends AbstractShape {
       this._y = y;
     } else {
       throw new Error('Y coordinate must be a number.');
+    }
+  }
+
+  public set originPoint(point: Point) {
+    if (point.hasOwnProperty('x') &&
+        point.hasOwnProperty('y')) {
+      if (point.x >= 0 && point.x <= 1 &&
+          point.y >= 0 && point.y <= 1) {
+        this._originPoint = point;
+      } else {
+        throw new Error('Incorrect point value. X and Y must be between 0 and 1.');
+      }
+    } else {
+      throw new Error('Incorrect point format. Must have x and y properties.');
     }
   }
 

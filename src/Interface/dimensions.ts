@@ -15,8 +15,3 @@ export interface EllipseDimensions {
   radiusX: number;
   radiusY: number;
 }
-
-export interface Point {
-  x: number;
-  y: number;
-}
