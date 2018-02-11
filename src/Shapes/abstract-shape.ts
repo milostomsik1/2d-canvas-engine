@@ -90,6 +90,8 @@ abstract class AbstractObject {
   }
 
   public abstract draw(): void;
+
+  // protected moveX
 }
 
 export default AbstractObject;

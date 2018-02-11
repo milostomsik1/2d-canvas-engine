@@ -12,6 +12,9 @@ class Canvas {
   private _onKeyUp: Function;
   private _onKeyUpEvent: KeyboardEvent;
 
+  private _onKeyDown: Function;
+  private _onKeyDownEvent: KeyboardEvent;
+
   // Get singleton instance
   static getInstance(): Canvas {
     if (!Canvas._instance) {
@@ -58,6 +61,7 @@ class Canvas {
       // problems with synchronization between framerate and event listener
       this.executeKeyPress();
       this.executeKeyUp();
+      this.executeKeyDown();
       fn();
     }, 1000 / this._framerate);
   }
@@ -75,6 +79,12 @@ class Canvas {
       this._onKeyUp(this._onKeyUpEvent);
       this._onKeyUp = null;
       this._onKeyUpEvent = null;
+    }
+  }
+
+  private executeKeyDown(): void {
+    if (this._onKeyDown) {
+      this._onKeyDown(this._onKeyDownEvent);
     }
   }
 
@@ -103,6 +113,18 @@ class Canvas {
         this._onKeyUpEvent = event;
         this._onKeyUp = fn.bind(this, event);
     });
+  }
+
+  public onKeyDown(fn: Function) {
+    window.addEventListener('keydown', (event: KeyboardEvent) => {
+        this._onKeyDownEvent = event;
+        this._onKeyDown = fn.bind(this, event);
+    });
+
+    window.addEventListener('keyup', (event: KeyboardEvent) => {
+      this._onKeyDown = null;
+      this._onKeyDownEvent = null;
+  });
   }
 }
 
