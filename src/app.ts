@@ -7,6 +7,7 @@ import Draw from './Engine/draw';
 import Background from './Shapes/background';
 import Rectangle from './Shapes/rectangle';
 import Square from './Shapes/square';
+import Circle from './Shapes/circle';
 
 //-------------------------
 // SETUP
@@ -28,6 +29,8 @@ const square = new Square();
 square.fillColor = '#00bfff';
 square.dimensions.side = 333;
 
+const circle = new Circle();
+
 //-------------------------
 // RENDERING
 //-------------------------
@@ -35,6 +38,7 @@ canvas.render(() => {
   background.draw();
   square.draw();
   rect.draw();
+  circle.draw();
 });
 
 

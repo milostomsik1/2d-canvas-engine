@@ -60,7 +60,7 @@ class Draw {
         typeof y === 'number' &&
         typeof r === 'number' && r > 0) {
       this.setFillColor(color);
-      this.ctx.ellipse(x, y, r * 2, r * 2, 0, 0, 360);
+      this.ctx.ellipse(x, y, r, r, 0, 0, 360);
       this.ctx.fill();
     } else {
       throw new Error('Incorrect parameters: x, y, r must be numbers, r must be larger than zero.');

@@ -1,10 +1,10 @@
-import { SquareDimensions } from '../Interface/dimensions';
+import { CircleDimensions } from '../Interface/dimensions';
 import { Point } from './../Interface/points';
 import AbstractShape from './abstract-shape';
 
-class Square extends AbstractShape {
-  protected _dimensions: SquareDimensions = {
-    side: 100
+class Circle extends AbstractShape {
+  protected _dimensions: CircleDimensions = {
+    radius: 100
   }
 
   public get x(): number {
@@ -45,31 +45,29 @@ class Square extends AbstractShape {
     }
   }
 
-  public get dimensions(): SquareDimensions {
+  public get dimensions(): CircleDimensions {
     return this._dimensions;
   }
 
-  public set dimensions(dimensions: SquareDimensions) {
-    if (typeof dimensions.side === 'number' && dimensions.side > 0) {
+  public set dimensions(dimensions: CircleDimensions) {
+    if (typeof dimensions.radius === 'number' && dimensions.radius > 0) {
       this._dimensions = {
-        side: dimensions.side
+        radius: dimensions.radius
       };
     } else {
-      throw new Error('Incorrect parameters: side must be number larger than zero.');
+      throw new Error('Incorrect parameters: radius must be number larger than zero.');
     }
   }
 
   public draw() {
     this.setup();
+    console.log(this._dimensions.radius);
 
-    this._draw.rectangle(this._x - (this._dimensions.side * this._originPoint.x),
-                         this._y - (this._dimensions.side * this._originPoint.y),
-                         {
-                           width: this._dimensions.side,
-                           height: this._dimensions.side
-                         },
-                         this._fillColor);
+    this._draw.circle(this._x,
+                      this._y,
+                      this._dimensions.radius,
+                      this._fillColor);
   }
 }
 
-export default Square;
+export default Circle;
