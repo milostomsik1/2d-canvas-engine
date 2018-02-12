@@ -4,9 +4,9 @@
 import { OriginPoint } from './Interface/points';
 import Canvas from './Engine/canvas';
 import Draw from './Engine/draw';
-import Rectangle from './Shapes/rectangle';
 import Background from './Shapes/background';
-
+import Rectangle from './Shapes/rectangle';
+import Square from './Shapes/square';
 
 //-------------------------
 // SETUP
@@ -24,12 +24,16 @@ rect.dimensions = {
 rect.originPoint = OriginPoint.CENTER;
 rect.fillColor = '#fff000';
 
+const square = new Square();
+square.fillColor = '#00bfff';
+square.dimensions.side = 333;
 
 //-------------------------
 // RENDERING
 //-------------------------
 canvas.render(() => {
   background.draw();
+  square.draw();
   rect.draw();
 });
 
@@ -38,16 +42,11 @@ canvas.render(() => {
 // KEY HANDLING
 //-------------------------
 canvas.onKeyPress((event: KeyboardEvent) => {
-  rect.dimensions.width = 315;
-  rect.dimensions.height = 210;
-
-  // console.log('keypress');
+  rect.fillColor = [75, 255, 50];
 });
 
 canvas.onKeyUp((event: KeyboardEvent) => {
-  rect.dimensions.width = 300;
-  rect.dimensions.height = 200;
-  // console.log('keyup');
+  rect.fillColor = '#fff000'
 });
 
 canvas.onKeyDown((event: KeyboardEvent) => {
@@ -61,6 +60,4 @@ canvas.onKeyDown((event: KeyboardEvent) => {
   else if (keyDown)   rect.y += 3;
   else if (keyLeft)   rect.x -= 3;
   else if (keyRight)  rect.x += 3;
-
-  // console.log('keydown');
 });
