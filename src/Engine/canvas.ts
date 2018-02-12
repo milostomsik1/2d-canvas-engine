@@ -13,7 +13,7 @@ class Canvas {
   private _onKeyUpEvent: KeyboardEvent;
 
   private _onKeyDown: Function;
-  private _onKeyDownEvent: KeyboardEvent;
+  private _onKeyDownEvents: KeyboardEvent[] = [];
 
   // Get singleton instance
   static getInstance(): Canvas {
@@ -83,13 +83,13 @@ class Canvas {
   }
 
   private executeKeyDown(): void {
-    if (this._onKeyDown) {
-      this._onKeyDown(this._onKeyDownEvent);
+    if (this._onKeyDownEvents.length > 0) {
+      this._onKeyDown(this._onKeyDownEvents[this._onKeyDownEvents.length - 1]);
     }
   }
 
   public onKeyPress(fn: Function) {
-    let prevKey: Number;
+    let prevKey: number;
 
     window.addEventListener('keydown', (event: KeyboardEvent) => {
       if([32, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
@@ -116,15 +116,29 @@ class Canvas {
   }
 
   public onKeyDown(fn: Function) {
+    setInterval(() => {
+      // console.log('Keys Down: ', keysDown.map(key => String.fromCharCode(key)));
+    }, 500);
+
+    let prevKey: number;
+    const keysDown: number[] = [];
+
     window.addEventListener('keydown', (event: KeyboardEvent) => {
-        this._onKeyDownEvent = event;
+      if (event.keyCode !== prevKey && keysDown.indexOf(event.keyCode) === -1) {
+        // console.log('Previous Key: ', String.fromCharCode(prevKey));
+        keysDown.push(event.keyCode);
+        this._onKeyDownEvents.push(event);
         this._onKeyDown = fn.bind(this, event);
+      }
+      prevKey = event.keyCode;
     });
 
     window.addEventListener('keyup', (event: KeyboardEvent) => {
-      this._onKeyDown = null;
-      this._onKeyDownEvent = null;
-  });
+      keysDown.splice(keysDown.indexOf(event.keyCode), 1);
+      this._onKeyDownEvents.splice(this._onKeyDownEvents.map(event => event.keyCode).indexOf(event.keyCode), 1);
+      prevKey = keysDown[keysDown.length - 1] || undefined;
+      this._onKeyDown = fn.bind(this, this._onKeyDownEvents[this._onKeyDownEvents.length - 1]);
+    });
   }
 }
 
