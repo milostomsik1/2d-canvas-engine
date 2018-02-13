@@ -67,6 +67,19 @@ class Draw {
     }
   }
 
+  public ellipse(x: number, y: number, radiusX: number, radiusY: number, color: string | number[]) {
+    if (typeof x === 'number' &&
+        typeof y === 'number' &&
+        typeof radiusX === 'number' && radiusX > 0 &&
+        typeof radiusY === 'number' && radiusY > 0) {
+      this.setFillColor(color);
+      this.ctx.ellipse(x, y, radiusX, radiusY, 0, 0, 360);
+      this.ctx.fill();
+    } else {
+      throw new Error('Incorrect parameters: x, y, radiusX, radiusY must be numbers, radiusX and radiusY must be larger than zero.');
+    }
+  }
+
 }
 
 export default Draw;
