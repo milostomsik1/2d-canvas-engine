@@ -28,7 +28,7 @@ rect.fillColor = '#fff000';
 
 const square = new Square();
 square.fillColor = '#00bfff';
-square.dimensions.side = 300;
+square.dimensions.side = 350;
 
 const circle = new Circle();
 circle.originPoint = OriginPoint.CENTER;
@@ -42,10 +42,10 @@ ellipse.originPoint = OriginPoint.CENTER;
 //-------------------------
 canvas.render(() => {
   background.draw();
+  square.draw();
   rect.draw();
   // circle.draw();
-  // square.draw();
-  ellipse.draw();
+  // ellipse.draw();
 });
 
 

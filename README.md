@@ -2,7 +2,6 @@
 
 OOP practice in Typescript
 
-
 #### Features:
 * Key detection: Key Down, Key Up, Key Press
 * Key handling synchronized to refresh rate
@@ -14,5 +13,5 @@ OOP practice in Typescript
 * `yarn dev` or `npm run dev` spins up webpack dev server which compiles Typescript and watches files for further changes
 
 ### TODO:
-* Fix switching keys
+* Fix performance drop
 * Add more shapes
